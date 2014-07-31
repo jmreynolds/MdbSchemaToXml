@@ -5,21 +5,11 @@ using System.Xml.Linq;
 
 namespace MdbSchemaToXml
 {
-    class MdbToXml
+    public class MdbToXml
     {
-        public string PathToData { get; set; }
-        public string PathToOutput { get; set; }
-
-        public MdbToXml(string pathToData, string pathToOutput)
+        public void GenerateXmlOutput(string pathToData, string pathToOutput)
         {
-            PathToData = pathToData;
-            PathToOutput = pathToOutput;
-            GenerateXmlOutput();
-        }
-
-        void GenerateXmlOutput()
-        {
-            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + PathToData;
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + pathToData;
             var databaseConnection = new OleDbConnection(connectionString);
             databaseConnection.Open();
 
@@ -42,15 +32,13 @@ namespace MdbSchemaToXml
                         foreach (DataRow row in schemaTable.Rows)
                         {
                             var fieldName = row[3];
-                            var fieldType = row[11];
-                            var fieldDescription = row[27];
                             var fieldElement = new XElement("Field", fieldName);
                             dataTableElement.Add(fieldElement);
                         }
                 }
             }
             Console.WriteLine(databaseElement);
-            databaseElement.Save(PathToOutput);
+            databaseElement.Save(pathToOutput);
             Console.ReadKey();
         }
     }

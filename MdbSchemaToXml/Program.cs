@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading;
 using CODE.Framework.Core.Utilities;
+using MdbSchemaToXml;
 
 namespace MdbSchemaCompare
 {
@@ -13,8 +14,9 @@ namespace MdbSchemaCompare
     {
         static void Main(string[] args)
         {
-            var newCompare = new MdbCompare(@"C:\Temp\20140728\new.mdb", @"C:\Temp\20140728\new.xml");
-            var oldCompare = new MdbCompare(@"C:\Temp\20140728\old.mdb", @"C:\Temp\20140728\old.xml");
+            var mdbToXml = new MdbToXml();
+            mdbToXml.GenerateXmlOutput(pathToData: @"C:\Temp\20140728\new.mdb", pathToOutput: @"C:\Temp\20140728\new.xml");
+            mdbToXml.GenerateXmlOutput(pathToData: @"C:\Temp\20140728\old.mdb", pathToOutput: @"C:\Temp\20140728\old.xml");
         }
     }
 }
